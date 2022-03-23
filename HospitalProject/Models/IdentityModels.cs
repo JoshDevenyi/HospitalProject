@@ -25,6 +25,12 @@ namespace HospitalProject.Models
         {
         }
 
+        //Add Doctor entity to our system
+        public DbSet<Doctor> Doctors { get; set; }
+
+        //Add Room entity to our system
+        public DbSet<Room> Rooms { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
