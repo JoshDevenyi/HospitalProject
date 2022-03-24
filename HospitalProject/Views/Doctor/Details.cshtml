@@ -4,8 +4,13 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Doctor/List">Go back to list</a>
-
+<div>
+    <a href="/Doctor/List">Go back to list</a>
+    <br />
+    <a href="/Doctor/Edit/@Model.DoctorId">Edit Doctor Details</a>
+    <br />
+    <a style="color:red;" href="/Doctor/DeleteConfirm/@Model.DoctorId">Delete Doctor</a>
+</div>
 <h2>@Model.DoctorFirstName @Model.DoctorLastName</h2>
 <p>@Model.Department</p>
 <p>@Model.DoctorEmail</p>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net.Http;
 using System.Diagnostics;
 using HospitalProject.Models;
+using System.Web.Script.Serialization;
 
 
 namespace HospitalProject.Controllers
@@ -14,6 +15,7 @@ namespace HospitalProject.Controllers
     {
 
         private static readonly HttpClient client;
+        private JavaScriptSerializer jss = new JavaScriptSerializer();
 
         static DoctorController()
         {
@@ -62,6 +64,12 @@ namespace HospitalProject.Controllers
             return View(SelectedDoctor);
         }
 
+        public ActionResult Error()
+        {
+            return View();
+        } 
+
+
         // GET: Doctor/Create
         public ActionResult New()
         {
@@ -72,54 +80,113 @@ namespace HospitalProject.Controllers
         [HttpPost]
         public ActionResult Create(Doctor doctor)
         {
-            Debug.WriteLine("The inputted doctor name is ");
-            Debug.WriteLine(doctor.DoctorFirstName);
-            Debug.WriteLine(doctor.DoctorLastName);
 
-            return RedirectToAction("List");
+            //Objective: Add new doctor into the system using the API
+            //curl -H "Content-Type:application/json" -d @doctor.json https://localhost:44323/api/doctordata/finddoctors/{id}
+
+            string url = "adddoctor";
+
+            string jsonpayload = jss.Serialize(doctor);
+
+            //Debug.WriteLine("Payload: ");
+            //Debug.WriteLine(jsonpayload);
+
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+
+            //Debug.WriteLine("Content: ");
+            //Console.WriteLine(content);
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            //Debug.WriteLine("Response: ");
+            //Console.WriteLine(response);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+            
         }
 
         // GET: Doctor/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            //The existing doctor information
+            string url = "finddoctor/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            DoctorDto SelectedDoctor = response.Content.ReadAsAsync<DoctorDto>().Result;
+            return View(SelectedDoctor);
         }
 
-        // POST: Doctor/Edit/5
+        // POST: Doctor/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Doctor doctor)
         {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
+            //objective: update the details of a doctor already in our system
+            //curl -H "Content-Type:application/json" -d @doctor.json https://localhost:44393/api/doctordata/updatedoctor/{id}
+            string url = "updatedoctor/" + id;
+
+            //Converting form data into JSON object
+            string jsonpayload = jss.Serialize(doctor);
+
+            Debug.WriteLine("Payload: ");
+            Debug.WriteLine(jsonpayload);
+
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json"; //Specifies that we are sending JSON information as part of the payload
+
+            //Debug.WriteLine("Content: ");
+            //Console.WriteLine(content);
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            Debug.WriteLine("Response: ");
+            Console.WriteLine(response);
+
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
 
-        // GET: Doctor/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Doctor/DeleteConfirm/5
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            //The existing doctor information
+            string url = "finddoctor/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            DoctorDto SelectedDoctor = response.Content.ReadAsAsync<DoctorDto>().Result;
+            return View(SelectedDoctor);
         }
 
         // POST: Doctor/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "deletedoctor/" + id;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json"; //Specifies that we are sending JSON information as part of the payload
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            //Checking that response was successful
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }
