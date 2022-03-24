@@ -185,6 +185,8 @@
     <Compile Include="Controllers\DoctorDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
+    <Compile Include="Controllers\PatientDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,11 +202,25 @@
     <Compile Include="Migrations\202203222053142_rooms.Designer.cs">
       <DependentUpon>202203222053142_rooms.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203231718265_patients.cs" />
+    <Compile Include="Migrations\202203231718265_patients.Designer.cs">
+      <DependentUpon>202203231718265_patients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203231732355_procedure.cs" />
+    <Compile Include="Migrations\202203231732355_procedure.Designer.cs">
+      <DependentUpon>202203231732355_procedure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203231742228_foreign-keys-procedures.cs" />
+    <Compile Include="Migrations\202203231742228_foreign-keys-procedures.Designer.cs">
+      <DependentUpon>202203231742228_foreign-keys-procedures.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Patient.cs" />
+    <Compile Include="Models\Procedure.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,9 +235,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <None Include="jsondata\doctor.json" />
+    <None Include="json\doctor.json" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="json\patient.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -270,6 +287,10 @@
     <Content Include="Views\Doctor\List.cshtml" />
     <Content Include="Views\Doctor\Details.cshtml" />
     <Content Include="Views\Doctor\New.cshtml" />
+    <Content Include="Views\Patient\List.cshtml" />
+    <Content Include="Views\Patient\Details.cshtml" />
+    <Content Include="Views\Patient\New.cshtml" />
+    <Content Include="Views\Patient\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -296,6 +317,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203222053142_rooms.resx">
       <DependentUpon>202203222053142_rooms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203231718265_patients.resx">
+      <DependentUpon>202203231718265_patients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203231732355_procedure.resx">
+      <DependentUpon>202203231732355_procedure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203231742228_foreign-keys-procedures.resx">
+      <DependentUpon>202203231742228_foreign-keys-procedures.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,12 @@
+﻿@model HospitalProject.Models.Patient
+
+
+@{
+    ViewBag.Title = "Details";
+}
+<a href="/Patient/List">Return to Patient List</a>
+<h2> @Model.PatientFirstName @Model.PatientLastName</h2>
+<p><strong>Phone:</strong> @Model.PatientPhone</p>
+<p><strong>Email:</strong> @Model.PatientEmail</p>
+
+
