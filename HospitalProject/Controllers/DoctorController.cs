@@ -88,19 +88,21 @@ namespace HospitalProject.Controllers
 
             string jsonpayload = jss.Serialize(doctor);
 
-            //Debug.WriteLine("Payload: ");
-            //Debug.WriteLine(jsonpayload);
+            Debug.WriteLine("Payload: ");
+            Debug.WriteLine(jsonpayload);
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
 
-            //Debug.WriteLine("Content: ");
-            //Console.WriteLine(content);
+            Debug.WriteLine("Content: ");
+            Debug.WriteLine(content);
 
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-            //Debug.WriteLine("Response: ");
-            //Console.WriteLine(response);
+            Debug.WriteLine("Response: ");
+            Debug.WriteLine(response);
+            Debug.WriteLine("Status Code: ");
+            Debug.WriteLine(response.IsSuccessStatusCode);
 
             if (response.IsSuccessStatusCode)
             {
@@ -141,13 +143,15 @@ namespace HospitalProject.Controllers
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json"; //Specifies that we are sending JSON information as part of the payload
 
-            //Debug.WriteLine("Content: ");
-            //Console.WriteLine(content);
+            Debug.WriteLine("Content: ");
+            Debug.WriteLine(content);
 
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
             Debug.WriteLine("Response: ");
-            Console.WriteLine(response);
+            Debug.WriteLine(response);  
+            Debug.WriteLine("Status Code: ");
+            Debug.WriteLine(response.IsSuccessStatusCode);
 
             if (response.IsSuccessStatusCode)
             {
