@@ -32,10 +32,10 @@ namespace HospitalProject.Models
         public DbSet<Room> Rooms { get; set; }
            
         //Add Patient Entity to our system
-        public DbSet<Patient> Patients { get; set; }
+        //DbSet<Patient> Patients { get; set; }
 
         //Add Procedure Entity to our system
-        public DbSet<Procedure> Procedures { get; set; }
+        //public DbSet<Procedure> Procedures { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
